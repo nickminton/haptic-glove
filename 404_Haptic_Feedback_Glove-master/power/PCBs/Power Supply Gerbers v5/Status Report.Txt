@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [Free Documents]
+   Generated File[Power Supply Design 2.TXT]
+   Generated File[Power Supply Design 2.LDP]
+   Generated File[Power Supply Design 2.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 9:42:28 PM On 2/11/2020
