@@ -17,7 +17,7 @@ voltage at A0 should decrease.
 Development environment specifics:
 Arduino 1.6.7
 ******************************************************************************/
-const int sensorPin[1] = {A0}; // Pins connected to voltage divider output
+const int sensorPin[2] = {A0, A1}; // Pins connected to voltage divider output
 const int n_sensors = sizeof(sensorPin)/sizeof(sensorPin[0]);
 float bend_angles[n_sensors];
 
@@ -28,8 +28,8 @@ const float R_DIV = 47500.0; // Measured resistance of 47k resistor
 
 // Upload the code, then try to adjust these values to more
 // accurately calculate bend degree.
-const float STRAIGHT_RESISTANCE = 23500.0; // resistance when straight
-const float BEND_RESISTANCE = 56000.0; // resistance at 90 deg
+const float STRAIGHT_RESISTANCE[2] = {23500.0, 23500.0}; // resistance when straight
+const float BEND_RESISTANCE[2] = {56000.0, 56000.0}; // resistance at 90 deg
 
 const int MPU = 0x68; // MPU6050 I2C address
 float AccX, AccY, AccZ;
@@ -104,7 +104,7 @@ void loop() {
 
   //Bend resistor Calcs
   for (int i = 0; i < n_sensors; i++) {
-      bend_angles[i] = calculate_bend(sensorPin[i]);
+      bend_angles[i] = calculate_bend(i);
   }
   
   // Print the values on the serial monitor
@@ -173,16 +173,16 @@ void calculate_IMU_error() {
   Serial.print("GyroErrorZ: ");
   Serial.println(GyroErrorZ);
 }
-float calculate_bend(int flex_pin) {
+float calculate_bend(int pin_n) {
   // Read the ADC, and calculate voltage and resistance from it
-  int flexADC = analogRead(flex_pin);
+  int flexADC = analogRead(sensorPin[pin_n]);
   float flexV = flexADC * VCC / 1023.0;
   float flexR = R_DIV * (VCC / flexV - 1.0);
   //Serial.println("Resistance: " + String(flexR) + " ohms");
 
   // Use the calculated resistance to estimate the sensor's
   // bend angle:
-  float angle = map(flexR, STRAIGHT_RESISTANCE, BEND_RESISTANCE,
+  float angle = map(flexR, STRAIGHT_RESISTANCE[pin_n], BEND_RESISTANCE[pin_n],
                    0, 90.0);
   //Serial.println("Bend: " + String(angle) + " degrees");
   //Serial.println();
