@@ -157,6 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!153 &1550573124853517011
 ConfigurableJoint:
@@ -332,6 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!65 &2685280174871132506
 BoxCollider:
@@ -521,6 +523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!65 &7003652994996537415
 BoxCollider:
@@ -677,6 +680,8 @@ MonoBehaviour:
   proximalPhalange: {fileID: 1360369968140785415}
   middlePhalange: {fileID: 582569852184925647}
   distalPhalange: {fileID: 1277701477606018169}
+  joints: []
+  jointControllers: []
 --- !u!1 &1277701477606018169
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,6 +761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!65 &7350829613337197518
 BoxCollider:
@@ -945,6 +951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!65 &8516465299763426620
 BoxCollider:
@@ -1212,6 +1219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!65 &7801316568193381407
 BoxCollider:
@@ -1369,6 +1377,8 @@ MonoBehaviour:
   proximalPhalange: {fileID: 4059496825053361201}
   middlePhalange: {fileID: 6510717567419415470}
   distalPhalange: {fileID: 1747945321151794655}
+  joints: []
+  jointControllers: []
 --- !u!54 &6706513230079396177
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1526,6 +1536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!153 &3756574232086592446
 ConfigurableJoint:
@@ -1669,6 +1680,8 @@ MonoBehaviour:
   proximalPhalange: {fileID: 7139230215153935772}
   middlePhalange: {fileID: 9006195877345236901}
   distalPhalange: {fileID: 421224670970711332}
+  joints: []
+  jointControllers: []
 --- !u!1 &4059496825053361201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1748,6 +1761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!153 &1725786479175812175
 ConfigurableJoint:
@@ -1937,6 +1951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!153 &1563569750168892170
 ConfigurableJoint:
@@ -2113,6 +2128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!65 &7995967939905695543
 BoxCollider:
@@ -2302,6 +2318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!65 &5688576323475396086
 BoxCollider:
@@ -2490,6 +2507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!65 &3579254016767423529
 BoxCollider:
@@ -2979,6 +2997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!65 &9012531364892901068
 BoxCollider:
@@ -3166,6 +3185,8 @@ MonoBehaviour:
   proximalPhalange: {fileID: 3569819636431153740}
   middlePhalange: {fileID: 4094540907810597661}
   distalPhalange: {fileID: 100456998348658300}
+  joints: []
+  jointControllers: []
 --- !u!1 &7057443576526752279
 GameObject:
   m_ObjectHideFlags: 0
@@ -3272,6 +3293,8 @@ MonoBehaviour:
   handOriginRotX: 175.4
   handOriginRotY: 0
   handOriginRotZ: 0
+  fingers: []
+  fingerControllers: []
 --- !u!1 &7139230215153935772
 GameObject:
   m_ObjectHideFlags: 0
@@ -3352,6 +3375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!65 &8160165212952787304
 BoxCollider:
@@ -3508,6 +3532,8 @@ MonoBehaviour:
   proximalPhalange: {fileID: 4461706977566862965}
   middlePhalange: {fileID: 4130621813791931662}
   distalPhalange: {fileID: 4488382052944392114}
+  joints: []
+  jointControllers: []
 --- !u!1 &8281824509200329736
 GameObject:
   m_ObjectHideFlags: 0
@@ -3651,6 +3677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   h: 0.55
   isInteracting: 0
+  forcePercent: 50
   targetRot: {x: 0, y: 0, z: 0}
 --- !u!65 &3640818725306010844
 BoxCollider:

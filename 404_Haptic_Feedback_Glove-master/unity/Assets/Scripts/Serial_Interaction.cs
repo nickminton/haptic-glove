@@ -29,7 +29,7 @@ public class Serial_Interaction : MonoBehaviour
     // =========================================================================
 
     // stream - the serial stream object
-    SerialPort stream = new SerialPort("/dev/cu.usbmodemM43210051", 115200);
+    SerialPort stream = new SerialPort("COM6", 115200);
 
     // handController - the hand controller object to feed information into
     HandController handController;

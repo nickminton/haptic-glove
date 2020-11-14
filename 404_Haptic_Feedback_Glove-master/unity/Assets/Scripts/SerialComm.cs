@@ -12,7 +12,7 @@ public class SerialComm : MonoBehaviour
     // =========================================================================
 
     // enable - whether or not serial communication is enabled
-    public bool enableOutput = false;
+    public bool enableOutput = true;
 
     // Hand - the hand object to get the handController from
     public GameObject Hand;
@@ -29,10 +29,10 @@ public class SerialComm : MonoBehaviour
     // =========================================================================
 
     // stream - the serial stream object
-    SerialPort stream = new SerialPort("/dev/cu.usbmodemM43210051", 115200);
+    SerialPort stream = new SerialPort("COM6", 115200); //new SerialPort("/dev/cu.usbmodemM43210051", 115200);
 
     // dataLength - the number of values expected from the input
-    int dataLength = 7;
+    int dataLength = 4;
 
     // handController - the hand controller object to feed information into
     HandController handController;
@@ -40,12 +40,13 @@ public class SerialComm : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enableOutput = false;
+        enableOutput = true;
         // skip if not enabled
         if (!enableOutput) {return;}
         Debug.Log("Test test");
         // open stream
         stream.Open();
+        Debug.Log(stream.IsOpen);
 
         // assign handController
         handController = Hand.GetComponent<HandController>();
@@ -124,7 +125,7 @@ public class SerialComm : MonoBehaviour
 
         // Index
         float iproximal = float.Parse(data[3]);
-        float imiddle = float.Parse(data[4]);
+        float imiddle = 0; // float.Parse(data[4]);
         float idistal = 0; // DEBUG
         handController.RotateFinger(handController.indexFinger, new Vector3(iproximal, imiddle, idistal));
 

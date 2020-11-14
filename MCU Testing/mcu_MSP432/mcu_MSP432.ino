@@ -6,7 +6,7 @@
 
 //////// DO WE NEED THIS?????
 //#if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
-   // #include "Wire.h"
+//    #include "Wire.h"
 //#endif
 
 // class default I2C address is 0x68
@@ -43,11 +43,11 @@ MPU6050 mpu;
 // more info, see: http://en.wikipedia.org/wiki/Gimbal_lock)
 #define OUTPUT_READABLE_YAWPITCHROLL
 
-#define DEBUG_MODE // use this to print outputs about the debugging state
+//#define DEBUG_MODE // use this to print outputs about the debugging state
 
 
-#define INTERRUPT_PIN 9 // P3_7  // use this as an interrprut 
-#define LED_PIN LED_BUILTIN // RED_LED // to display if system is on
+#define INTERRUPT_PIN 31// P3_7  // use this as an interrprut 
+#define LED_PIN RED_LED // to display if system is on
 bool blinkState = false;
 
 // MPU control/status vars
@@ -57,6 +57,7 @@ uint8_t devStatus;      // return status after each device operation (0 = succes
 uint16_t packetSize;    // expected DMP packet size (default is 42 bytes)
 uint16_t fifoCount;     // count of all bytes currently in FIFO
 uint8_t fifoBuffer[64]; // FIFO storage buffer
+#define M_PI 3.14159
 
 // orientation/motion vars
 Quaternion q;           // [w, x, y, z]         quaternion container
@@ -74,7 +75,7 @@ float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gra
 //const int sensorPin5 = A8;    // pin that the sensor is attached to
 
 // pins that the sensors are attached to
-const int sensorPin[5] = {A0, A1, A2, A3, A4};
+const int sensorPin[4] = {A14, A13, A11, A9};
 
 // number of sensors available
 const int numSensors = sizeof(sensorPin)/sizeof(sensorPin[0]);
@@ -82,7 +83,7 @@ const int numSensors = sizeof(sensorPin)/sizeof(sensorPin[0]);
 // degree array
 float deg[numSensors];
 
-const int ledPin = LED_BUILTIN;        // pin that the LED is attached to
+const int ledPin = BLUE_LED;        // pin that the LED is attached to
 
 // variables:
 //int sensorValue1 = 0;         // the sensor value
@@ -154,11 +155,8 @@ void setup() {
     #ifdef DEBUG_MODE
       Serial.println(F("Initializing I2C devices..."));
     #endif
-    pinMode(INTERRUPT_PIN, INPUT);
-    attachInterrupt(INTERRUPT_PIN, dmpDataReady, RISING);
-    Serial.println(F("Interupt pin set"));
     mpu.initialize();
-    
+    pinMode(INTERRUPT_PIN, INPUT);
 
     // verify connection
     #ifdef DEBUG_MODE
@@ -198,8 +196,7 @@ void setup() {
         #ifdef DEBUG_MODE
           Serial.println(F("Enabling interrupt detection (Arduino external interrupt 0)..."));
         #endif
-        // attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), dmpDataReady, RISING);
-        //attachInterrupt(INTERRUPT_PIN, dmpDataReady, RISING);
+        attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), dmpDataReady, RISING);
         mpuIntStatus = mpu.getIntStatus();
 
         // set our DMP Ready flag so the main loop() function knows it's okay to use it
