@@ -32,7 +32,7 @@ public class SerialComm : MonoBehaviour
     SerialPort stream = new SerialPort("COM6", 115200); //new SerialPort("/dev/cu.usbmodemM43210051", 115200);
 
     // dataLength - the number of values expected from the input
-    int dataLength = 4;
+    int dataLength = 5;
 
     // handController - the hand controller object to feed information into
     HandController handController;
@@ -125,7 +125,7 @@ public class SerialComm : MonoBehaviour
 
         // Index
         float iproximal = float.Parse(data[3]);
-        float imiddle = 0; // float.Parse(data[4]);
+        float imiddle = float.Parse(data[4]); // float.Parse(data[4]);
         float idistal = 0; // DEBUG
         handController.RotateFinger(handController.indexFinger, new Vector3(iproximal, imiddle, idistal));
 

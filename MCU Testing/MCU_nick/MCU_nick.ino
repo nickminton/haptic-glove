@@ -17,6 +17,7 @@ voltage at A0 should decrease.
 Development environment specifics:
 Arduino 1.6.7
 ******************************************************************************/
+//const bool TESTING = true;
 const int sensorPin[2] = {A0, A1}; // Pins connected to voltage divider output
 const int n_sensors = sizeof(sensorPin)/sizeof(sensorPin[0]);
 float bend_angles[n_sensors];
@@ -28,8 +29,8 @@ const float R_DIV = 47500.0; // Measured resistance of 47k resistor
 
 // Upload the code, then try to adjust these values to more
 // accurately calculate bend degree.
-const float STRAIGHT_RESISTANCE[2] = {23500.0, 23500.0}; // resistance when straight
-const float BEND_RESISTANCE[2] = {56000.0, 56000.0}; // resistance at 90 deg
+const float STRAIGHT_RESISTANCE[2] = {32500.0, 23500.0}; // resistance when straight
+const float BEND_RESISTANCE[2] = {48000.0, 56000.0}; // resistance at 90 deg
 
 const int MPU = 0x68; // MPU6050 I2C address
 float AccX, AccY, AccZ;
@@ -92,8 +93,8 @@ void loop() {
   GyroZ = (Wire.read() << 8 | Wire.read()) / 131.0;
   // Correct the outputs with the calculated error values
   GyroX = GyroX + 2; // GyroErrorX ~(-0.56)
-  GyroY = GyroY + 2.16; // GyroErrorY ~(2)
-  GyroZ = GyroZ + 0.7; // GyroErrorZ ~ (-0.8)
+  GyroY = GyroY + 1.95; // GyroErrorY ~(2)
+  GyroZ = GyroZ + 0.6; // GyroErrorZ ~ (-0.8)
   // Currently the raw values are in degrees per seconds, deg/s, so we need to multiply by sendonds (s) to get the angle in degrees
   gyroAngleX = gyroAngleX + GyroX * elapsedTime; // deg/s * s = deg
   gyroAngleY = gyroAngleY + GyroY * elapsedTime;
