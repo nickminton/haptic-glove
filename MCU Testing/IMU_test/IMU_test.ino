@@ -61,8 +61,8 @@ void loop() {
   GyroZ = (Wire.read() << 8 | Wire.read()) / 131.0;
   // Correct the outputs with the calculated error values
   GyroX = GyroX + 2; // GyroErrorX ~(-0.56)
-  GyroY = GyroY + 2.16; // GyroErrorY ~(2)
-  GyroZ = GyroZ + 0.7; // GyroErrorZ ~ (-0.8)
+  GyroY = GyroY + 1.9; // GyroErrorY ~(2)
+  GyroZ = GyroZ + 0.6; // GyroErrorZ ~ (-0.8)
   // Currently the raw values are in degrees per seconds, deg/s, so we need to multiply by sendonds (s) to get the angle in degrees
   gyroAngleX = gyroAngleX + GyroX * elapsedTime; // deg/s * s = deg
   gyroAngleY = gyroAngleY + GyroY * elapsedTime;
@@ -77,7 +77,7 @@ void loop() {
   Serial.print(pitch);
   Serial.print("/");
   Serial.println(yaw);
-  //calculate_IMU_error();
+  calculate_IMU_error();
 }
 void calculate_IMU_error() {
   // We can call this funtion in the setup section to calculate the accelerometer and gyro data error. From here we will get the error values used in the above equations printed on the Serial Monitor.
