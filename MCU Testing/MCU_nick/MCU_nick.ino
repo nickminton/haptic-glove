@@ -40,6 +40,7 @@ float roll, pitch, yaw;
 float AccErrorX, AccErrorY, GyroErrorX, GyroErrorY, GyroErrorZ;
 float elapsedTime, currentTime, previousTime;
 int c = 0;
+float temp = 0;
 void setup() {
   Serial.begin(19200);
   for(int i = 0; i < n_sensors; i++){
@@ -107,7 +108,10 @@ void loop() {
   for (int i = 0; i < n_sensors; i++) {
       bend_angles[i] = calculate_bend(i);
   }
-  
+  // Adjust valuses to be sent to unity
+  temp = pitch;
+  pitch = yaw;
+  yaw = -1*temp;
   // Print the values on the serial monitor
   Serial.print(roll);
   Serial.print(",");
