@@ -1,5 +1,5 @@
 /*
-   Combined and eddited by Nick Minton
+   Combined and edited by Nick Minton
    Sources:
    Arduino and MPU6050 Accelerometer and Gyroscope Sensor Tutorial
    by Dejan, https://howtomechatronics.com
@@ -93,9 +93,9 @@ void loop() {
   GyroY = (Wire.read() << 8 | Wire.read()) / 131.0;
   GyroZ = (Wire.read() << 8 | Wire.read()) / 131.0;
   // Correct the outputs with the calculated error values
-  GyroX = GyroX + 2; // GyroErrorX ~(-0.56)
-  GyroY = GyroY + 1.95; // GyroErrorY ~(2)
-  GyroZ = GyroZ + 0.6; // GyroErrorZ ~ (-0.8)
+  GyroX = GyroX + 2; // GyroErrorX ~(-2)
+  GyroY = GyroY + 1.95; // GyroErrorY ~(-1.95)
+  GyroZ = GyroZ + 0.6; // GyroErrorZ ~ (-0.6)
   // Currently the raw values are in degrees per seconds, deg/s, so we need to multiply by sendonds (s) to get the angle in degrees
   gyroAngleX = gyroAngleX + GyroX * elapsedTime; // deg/s * s = deg
   gyroAngleY = gyroAngleY + GyroY * elapsedTime;
@@ -109,9 +109,9 @@ void loop() {
       bend_angles[i] = calculate_bend(i);
   }
   // Adjust valuses to be sent to unity
-  temp = pitch;
-  pitch = yaw;
-  yaw = -1*temp;
+//  temp = pitch;
+//  pitch = yaw;
+//  yaw = temp;
   // Print the values on the serial monitor
   Serial.print(roll);
   Serial.print(",");

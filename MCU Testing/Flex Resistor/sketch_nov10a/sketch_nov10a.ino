@@ -24,8 +24,8 @@ const float R_DIV = 47500.0; // Measured resistance of 47k resistor
 
 // Upload the code, then try to adjust these values to more
 // accurately calculate bend degree.
-const float STRAIGHT_RESISTANCE[2] = {32500.0, 23500.0}; // resistance when straight
-const float BEND_RESISTANCE[2] = {48000.0, 55000.0}; // resistance at 90 deg
+const float STRAIGHT_RESISTANCE[2] = {30000.0, 23500.0}; // resistance when straight
+const float BEND_RESISTANCE[2] = {48000.0, 60000.0}; // resistance at 90 deg
 void setup() 
 {
   Serial.begin(9600);

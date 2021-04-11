@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.Ports;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,8 @@ public class Serial_Interaction : MonoBehaviour
     // =========================================================================
 
     // enable - whether or not serial communication is enabled
-    public bool enableOutput = false;
+    public bool enableOutput = true;
+    public bool textOutput = false;
 
     // Hand - the hand object to get the handController from
     public GameObject Hand;
@@ -29,7 +31,8 @@ public class Serial_Interaction : MonoBehaviour
     // =========================================================================
 
     // stream - the serial stream object
-    SerialPort stream = new SerialPort("COM6", 115200);
+    SerialPort stream = new SerialPort("COM8", 115200);
+    //StreamWriter stream = new StreamWriter("./outTest/test.txt", true);
 
     // handController - the hand controller object to feed information into
     HandController handController;
@@ -42,24 +45,35 @@ public class Serial_Interaction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("serial interaction start up");
         // Set up the hand controller
         handController = Hand.GetComponent<HandController>();
-        enableOutput = false;
+
         // skip if not enabled
         if (!enableOutput) {return;}
 
-        // Set the read/write timeouts
-        stream.ReadTimeout = 500;
-        stream.WriteTimeout = 500;
+        textOutput = false;
+        if (!textOutput)
+        {
+            Debug.Log("Serial inteaction entered stream try");
+            // Set the read/write timeouts
+            stream.ReadTimeout = 500;
+            stream.WriteTimeout = 500;
 
-        // open stream
-        try
-        {
-            stream.Open();
-        } catch
-        {
-            throw new System.Exception("Stream is not available!");
+            // open stream
+            try
+            {
+                stream.Open();
+                Debug.Log("stream opened");
+            }
+            catch
+            {
+                throw new System.Exception("Out Stream is not available!");
+                //Debug.Log("serial interaction stream not available");
+            }
+            Debug.Log("serial interaction past try catch");
         }
+        Debug.Log("serial interaction start up complete");
     }
 
     // Update is called once per frame
@@ -68,19 +82,35 @@ public class Serial_Interaction : MonoBehaviour
         // skip if not enabled
         if (!enableOutput) {return;}
 
-        // Check if stream is open
-        if (!stream.IsOpen) 
+        if (!textOutput)
         {
-            throw new System.Exception("Stream is closed");
+            // Check if stream is open
+            if (!stream.IsOpen)
+            {
+                throw new System.Exception("Stream is closed");
+            }
         }
-
         // Initialize
 
         // Generate string based on hand values
         string sendStr = GenerateInteractionStream();
 
         // Send string
-        stream.Write(sendStr);
+        textOutput = false;
+        if (!textOutput)
+        {
+            sendStr = sendStr + "/n";
+            stream.Write(sendStr);
+        } else
+        {
+            string path = "Assets/Resources/test.txt";
+
+            //Write some text to the test.txt file
+            StreamWriter writer = new StreamWriter(path, true);
+            writer.WriteLine(sendStr);
+            writer.Close();
+        }
+
     }
 
     public string GenerateInteractionStream()
@@ -92,7 +122,7 @@ public class Serial_Interaction : MonoBehaviour
         foreach (GameObject finger in handController.fingers)
         {
             FingerController fc = finger.GetComponent<FingerController>();
-
+            
             // Add proximal
             retstr += (fc.jointControllers[0].isInteracting ? 1 : 0) * fc.jointControllers[0].forcePercent;
             retstr += ",";
@@ -101,9 +131,11 @@ public class Serial_Interaction : MonoBehaviour
             int middleForce = (fc.jointControllers[1].isInteracting ? 1 : 0) * fc.jointControllers[1].forcePercent;
             int distalForce = (fc.jointControllers[2].isInteracting ? 1 : 0) * fc.jointControllers[2].forcePercent;
             retstr += (Mathf.Max(middleForce, distalForce));
+
             retstr += ",";
         }
 
-        return retstr;
+        string retstr1 = retstr.Remove(retstr.Length - 1, 1);
+        return retstr1;
     }
 }

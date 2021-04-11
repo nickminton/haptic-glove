@@ -11,6 +11,7 @@ public abstract class JointController : MonoBehaviour
 
     // TODO: make this value dynamic!
     public int forcePercent = 50;  // percent force to be applied if interacting
+    public float forceGradient = 0;
 
     protected Vector3 rotTemp;
 
@@ -50,6 +51,7 @@ public abstract class JointController : MonoBehaviour
 
         // Set forcePercent
         forcePercent = MaterialToForce(other.sharedMaterial);
+        forceGradient = cj.targetAngularVelocity.x;
     }
 
     protected void OnTriggerExit(Collider other)

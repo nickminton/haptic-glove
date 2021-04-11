@@ -4673,6 +4673,11 @@ PrefabInstance:
       propertyPath: m_LightProbeUsage
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1496335005544306363, guid: 615a1a94527c74f789dcc0aa15f6371e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1550573124853517011, guid: 615a1a94527c74f789dcc0aa15f6371e,
         type: 3}
       propertyPath: m_ConnectedAnchor.x

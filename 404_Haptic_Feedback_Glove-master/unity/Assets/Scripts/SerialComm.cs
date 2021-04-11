@@ -12,7 +12,7 @@ public class SerialComm : MonoBehaviour
     // =========================================================================
 
     // enable - whether or not serial communication is enabled
-    public bool enableOutput = true;
+    public bool enableOutput = false;
 
     // Hand - the hand object to get the handController from
     public GameObject Hand;
@@ -29,10 +29,10 @@ public class SerialComm : MonoBehaviour
     // =========================================================================
 
     // stream - the serial stream object
-    SerialPort stream = new SerialPort("COM6", 115200); //new SerialPort("/dev/cu.usbmodemM43210051", 115200);
+    SerialPort stream = new SerialPort("COM7", 115200); //new SerialPort("/dev/cu.usbmodemM43210051", 115200);
 
     // dataLength - the number of values expected from the input
-    int dataLength = 5;
+    int dataLength = 10;
 
     // handController - the hand controller object to feed information into
     HandController handController;
@@ -43,7 +43,7 @@ public class SerialComm : MonoBehaviour
         enableOutput = true;
         // skip if not enabled
         if (!enableOutput) {return;}
-        Debug.Log("Test test");
+        //Debug.Log("Test test");
         // open stream
         stream.Open();
         Debug.Log(stream.IsOpen);
@@ -80,7 +80,7 @@ public class SerialComm : MonoBehaviour
             data = str.Split(delimiter);
 
             // DEBUG
-            Debug.Log(input);
+            //Debug.Log(input);
 
             // DEBUG: should I move this to the end of this update to minimize latency?
             // discard the backed-up stream
@@ -115,54 +115,57 @@ public class SerialComm : MonoBehaviour
         }
 
         // Hand rotation
-        float yaw = float.Parse(data[0]);
-        float pitch = float.Parse(data[1]);
-        float roll = float.Parse(data[2]);
+        float yaw = 0;
+        float pitch = 0;
+        float roll = 0;
         handController.RotateHand(new Vector3(pitch,-yaw,roll));
 
+        // DEBUG: only continue if there is enough data
+        if (dataLength < 2) {return;}
+
+        // Thumb
+        float tproximal = 0;
+        float tmiddle = float.Parse(data[1]);
+        float tdistal = float.Parse(data[0]);
+        handController.RotateFinger(handController.Thumb, new Vector3(tproximal, tmiddle, tdistal));
+
+        
         // DEBUG: only continue if there is enough data
         if (dataLength < 4) {return;}
 
         // Index
         float iproximal = float.Parse(data[3]);
-        float imiddle = float.Parse(data[4]); // float.Parse(data[4]);
+        float imiddle = float.Parse(data[2]); // float.Parse(data[4]);
         float idistal = 0; // DEBUG
         handController.RotateFinger(handController.indexFinger, new Vector3(iproximal, imiddle, idistal));
 
+        
+
         // DEBUG: only continue if there is enough data
-        if (dataLength < 7) {return;}
+        if (dataLength < 6) {return;}
 
         // Middle
         float mproximal = float.Parse(data[5]);
-        float mmiddle = float.Parse(data[6]);
+        float mmiddle = float.Parse(data[4]);
         float mdistal = 0; // DEBUG
         handController.RotateFinger(handController.middleFinger, new Vector3(mproximal, mmiddle, mdistal));
 
         // DEBUG: only continue if there is enough data
-        if (dataLength < 10) {return;}
-
-        // Thumb
-        float tproximal = float.Parse(data[9]);
-        float tmiddle = float.Parse(data[10]);
-        float tdistal = float.Parse(data[11]);
-        handController.RotateFinger(handController.Thumb, new Vector3(tproximal, tmiddle, tdistal));
-
-        // DEBUG: only continue if there is enough data
-        if (dataLength < 13) {return;}
+        if (dataLength < 8) {return;}
 
         // Ring
-        float rproximal = float.Parse(data[12]);
-        float rmiddle = float.Parse(data[13]);
-        float rdistal = float.Parse(data[14]);
+        float rproximal = float.Parse(data[7]);
+        float rmiddle = float.Parse(data[6]);
+        float rdistal = 0;
         handController.RotateFinger(handController.ringFinger, new Vector3(rproximal, rmiddle, rdistal));
 
         // DEBUG: only continue if there is enough data
-        if (dataLength < 16) {return;}
+        if (dataLength < 10) {return;}
 
         // Small
-        float sproximal = float.Parse(data[15]);
-        float smiddle = float.Parse(data[16]);
-        float sdistal = float.Parse(data[17]);
+        float sproximal = float.Parse(data[9]);
+        float smiddle = float.Parse(data[8]);
+        float sdistal = 0;
         handController.RotateFinger(handController.smallFinger, new Vector3(sproximal, smiddle, sdistal));
     }
 }
