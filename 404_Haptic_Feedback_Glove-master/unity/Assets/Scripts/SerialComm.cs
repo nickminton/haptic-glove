@@ -40,7 +40,7 @@ public class SerialComm : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enableOutput = true;
+        enableOutput = false;
         // skip if not enabled
         if (!enableOutput) {return;}
         //Debug.Log("Test test");

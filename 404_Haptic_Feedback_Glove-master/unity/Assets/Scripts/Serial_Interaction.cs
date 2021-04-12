@@ -31,7 +31,7 @@ public class Serial_Interaction : MonoBehaviour
     // =========================================================================
 
     // stream - the serial stream object
-    SerialPort stream = new SerialPort("COM8", 115200);
+    SerialPort stream = new SerialPort("COM8", 9600);
     //StreamWriter stream = new StreamWriter("./outTest/test.txt", true);
 
     // handController - the hand controller object to feed information into
@@ -96,18 +96,20 @@ public class Serial_Interaction : MonoBehaviour
         string sendStr = GenerateInteractionStream();
 
         // Send string
-        textOutput = false;
+        //textOutput = false;
         if (!textOutput)
         {
-            sendStr = sendStr + "/n";
+            sendStr = sendStr + "\n";
             stream.Write(sendStr);
+
         } else
         {
             string path = "Assets/Resources/test.txt";
 
             //Write some text to the test.txt file
             StreamWriter writer = new StreamWriter(path, true);
-            writer.WriteLine(sendStr);
+            sendStr = sendStr + "\n";
+            writer.Write(sendStr);
             writer.Close();
         }
 
@@ -125,17 +127,17 @@ public class Serial_Interaction : MonoBehaviour
             
             // Add proximal
             retstr += (fc.jointControllers[0].isInteracting ? 1 : 0) * fc.jointControllers[0].forcePercent;
-            retstr += ",";
+            //retstr += ",";
 
             // Link proximal and distal
             int middleForce = (fc.jointControllers[1].isInteracting ? 1 : 0) * fc.jointControllers[1].forcePercent;
             int distalForce = (fc.jointControllers[2].isInteracting ? 1 : 0) * fc.jointControllers[2].forcePercent;
             retstr += (Mathf.Max(middleForce, distalForce));
 
-            retstr += ",";
+            //retstr += ",";
         }
 
-        string retstr1 = retstr.Remove(retstr.Length - 1, 1);
-        return retstr1;
+        //string retstr1 = retstr.Remove(retstr.Length - 1, 1);
+        return retstr;
     }
 }

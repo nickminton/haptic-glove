@@ -10,7 +10,7 @@ public abstract class JointController : MonoBehaviour
     public bool isInteracting;
 
     // TODO: make this value dynamic!
-    public int forcePercent = 50;  // percent force to be applied if interacting
+    public int forcePercent = 4;  // percent force to be applied if interacting
     public float forceGradient = 0;
 
     protected Vector3 rotTemp;
@@ -102,9 +102,9 @@ public abstract class JointController : MonoBehaviour
         // Choose hardness based on physic material
         // TODO: Change this to be NOT based on material name!!
         if (material.name.Contains("rigid")) {
-            return 100;
+            return 9;
         } else if (material.name.Contains("soft")) {
-            return 50;
+            return 4;
         }
 
         // default value
