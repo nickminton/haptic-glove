@@ -47,13 +47,13 @@ void loop() {
 // ===              Printing Degrees Flex senosrs               ===
 // ================================================================
     
-
+  String send_data = "";
     for (int i = 0; i < n_sensors; i++) {
-      if (i != 0) { Serial.print(","); }
-      Serial.print(bend_angles[i]);
+      if (i != 0) { send_data= send_data + ","; }
+      send_data = send_data + bend_angles[i];
     }
-    Serial.println("");
-
+    Serial.println(send_data);
+    delay(11);
 
 }
 

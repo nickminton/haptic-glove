@@ -1,13 +1,14 @@
-int tproximal = 3;
 int tmiddle = 2;
-int iproximal = 5;
+int tproximal = 3;
 int imiddle = 4;
-int mproximal = 7;
+int iproximal = 5;
 int mmiddle = 6;
-int rproximal = 9;
+int mproximal = 7;
 int rmiddle = 8;
-int pproximal = 11;
+int rproximal = 9;
 int pmiddle = 10;
+int pproximal = 11;
+
 
 //Initialize Vibe Variables to zero
 int tproxVibe = 0;
@@ -63,16 +64,21 @@ void loop() {
     //delay(100);
     //digitalWrite(ledPin, LOW);      
     //Parses the input force values
-    tproxVibe = Serial.read() - '0';
     tmidVibe = Serial.read()- '0';
-    iproxVibe = Serial.read()- '0';
+    tproxVibe = Serial.read() - '0';
+
     imidVibe = Serial.read()- '0';
-    mproxVibe = Serial.read()- '0';
+    iproxVibe = Serial.read()- '0';
+
     mmidVibe = Serial.read()- '0';
-    rproxVibe = Serial.read()- '0';
+    mproxVibe = Serial.read()- '0';
+    
     rmidVibe = Serial.read()- '0';
-    pproxVibe = Serial.read()- '0';
+    rproxVibe = Serial.read()- '0';
+
     pmidVibe = Serial.read()- '0'; 
+    pproxVibe = Serial.read()- '0';
+    
     
 
     //Serial.println("mmid =" + String(mmidVibe));
@@ -129,7 +135,7 @@ void loop() {
       analogWrite(pproximal, pproxVibe);
       analogWrite(pmiddle, pmidVibe);
       analogWrite(tproximal, tproxVibe);
-      analogWrite(tmiddle, tproxVibe);
+      analogWrite(tmiddle, tmidVibe);
       //Serial.print("test");
 //      digitalWrite(ledPin, HIGH);
 //      //delay(100);

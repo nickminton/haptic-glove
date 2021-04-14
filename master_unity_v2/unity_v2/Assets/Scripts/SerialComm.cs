@@ -40,12 +40,13 @@ public class SerialComm : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enableOutput = false;
+        enableOutput = true;
         // skip if not enabled
         if (!enableOutput) {return;}
         //Debug.Log("Test test");
         // open stream
         stream.Open();
+        stream.ReadTimeout = 110;
         Debug.Log(stream.IsOpen);
 
         // assign handController
@@ -58,6 +59,7 @@ public class SerialComm : MonoBehaviour
         // skip if not enabled
         if (!enableOutput) {return;}
 
+        stream.ReadTimeout = 16;
         // Check if stream is open
         if (!stream.IsOpen) 
         {

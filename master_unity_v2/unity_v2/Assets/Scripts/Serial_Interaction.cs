@@ -124,20 +124,17 @@ public class Serial_Interaction : MonoBehaviour
         foreach (GameObject finger in handController.fingers)
         {
             FingerController fc = finger.GetComponent<FingerController>();
-            
-            // Add proximal
-            retstr += (fc.jointControllers[0].isInteracting ? 1 : 0) * fc.jointControllers[0].forcePercent;
-            //retstr += ",";
 
-            // Link proximal and distal
+            // Link middle and distal
             int middleForce = (fc.jointControllers[1].isInteracting ? 1 : 0) * fc.jointControllers[1].forcePercent;
             int distalForce = (fc.jointControllers[2].isInteracting ? 1 : 0) * fc.jointControllers[2].forcePercent;
             retstr += (Mathf.Max(middleForce, distalForce));
 
-            //retstr += ",";
+            // Add proximal
+            retstr += (fc.jointControllers[0].isInteracting ? 1 : 0) * fc.jointControllers[0].forcePercent;
         }
 
-        //string retstr1 = retstr.Remove(retstr.Length - 1, 1);
+      
         return retstr;
     }
 }
